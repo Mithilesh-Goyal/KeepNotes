@@ -1,0 +1,56 @@
+<div class="col col-lg-2   sidebar">
+  <div class = "row" >
+  <div class="col col-lg-3">
+    <%= image_tag "notesicon.jpg", height: 50 %>
+  </div>
+  <div class="col col-lg-9">
+  <%= link_to "Notes", notes_path %>
+  </div>
+  </div>
+  <div class = "row" >
+    <div class="col col-lg-3">
+      <%= image_tag "addnotesicon.png", height: 20 %>
+    </div>
+    <div class="col col-lg-9">
+      <%= link_to new_note_path , remote: true do %>
+        <h7>Add Notes</h7>
+      <% end %>
+    </div>
+  </div>
+  <div class = "row" >
+    <div class="col col-lg-3">
+      <%= image_tag "archive.jpg", height: 20 %>
+    </div>
+    <div class="col col-lg-9">
+      <%= link_to "Archive Notes", notes_archived_path %>
+    </div>
+  </div>
+  <div class = "row" >
+    <div class="col col-lg-3">
+      <%= image_tag "binicon.png", height: 20 %>
+    </div>
+    <div class="col col-lg-9">
+      <%= link_to "Show Bin " , notes_bin_path %>
+    </div>
+  </div>
+  <div class = "row" >
+    <div class="col col-lg-3">
+      <%= image_tag "editlabelicon.png", height: 20 %>
+    </div>
+    <div class="col col-lg-9">
+      <%#= link_to "Create Label", new_label_path %>
+      <%= link_to 'edit_label', new_label_path, :remote => true %>
+    </div>
+  </div>
+  <% @labels.each do |label| %>
+    <div class="row">
+      <div class="col col-lg-3">
+        <%= image_tag "labelicon.png", height: 30 %>
+      </div>
+      <div class="col col-lg-9">
+        <%= link_to label.label_name , label_path(label) %>
+      </div>
+    </div>
+  <% end %>
+</div>
+<div id='mylabel'></div>

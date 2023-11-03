@@ -1,0 +1,10 @@
+<div class="row" class="search">
+  <div class="col col-sm-2">
+  </div>
+  <div class="col col-sm-10" >
+    <%= form_tag(notes_path, method: :get) do %>
+      <%= text_field_tag :query, params[:query], placeholder: "Search..." %>
+      <%= submit_tag "Search" %>
+    <% end %>
+  </div>
+</div>

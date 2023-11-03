@@ -1,0 +1,17 @@
+<div class="container">
+  <div class="row">
+    <div class="col col-lg-2">
+      <%= content_for (:sidebar) do %>
+        <%= render :partial => "layouts/sidebar" %>
+      <% end %>
+    </div>
+    <div class="col col-lg-10">
+      <div class= "row"  class="rounded-0">
+        <% @notes.del.each do |note| %>
+          <%= render  partial: "note" , locals: { note: note} %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+<div id='mynote'></div>

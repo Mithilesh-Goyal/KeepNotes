@@ -1,0 +1,19 @@
+<div id="new" class="modal fade" role="model-dialog">
+  <div class="modal-dialog modal-lg" >
+    <div class="modal-content">
+      <%= form_for(label, remote: true) do |form| %>
+        <div style="background-color: <%= @label.color.downcase %>;", class = T >
+          <div class = "row">
+            <div class = "col">
+              <%= form.text_field :label_name, placeholder: "Title" %>
+            </div>
+            <% label.errors.full_messages_for(:label_name).each do |message| %>
+              <div><%= message %></div>
+            <% end %>
+          </div>
+            <%= form.submit "save" %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

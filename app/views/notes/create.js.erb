@@ -1,0 +1,9 @@
+$(".notesTable").replaceWith("<%=j render :partial=> 'notes/update_note', :locals => {notes: @notes }%>");
+$("input[type=text]").val("");
+
+$('#myModal').modal('hide');
+$('body').removeClass('modal-open');
+$('.modal-backdrop').remove();
+
+$('#mynote').html("<%= j render 'form', note: @note %>");
+$('#form').modal('show');

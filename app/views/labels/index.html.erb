@@ -1,0 +1,12 @@
+<h2> Label </h2>
+<% @labels.each  do |label| %>
+  <table>
+  <tr>
+    <td><%= label.label_name %></td>
+    <td><h3><%= link_to "Edit", edit_label_path(label) %> </h3></td>
+    <td><%= link_to 'Destroy', label,
+    method: :delete,
+    data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+</table>
+<% end %>

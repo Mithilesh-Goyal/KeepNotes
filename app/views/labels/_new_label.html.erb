@@ -1,0 +1,15 @@
+<div id="new_label" class="modal fade" role="model-dialog">
+  <div class="modal-dialog modal-lg" >
+    <div class="modal-content">
+      <%= form_for @label , url: {action: "create" } do |form| %>
+        <div class='new'>
+          <%= form.text_field :label_name, placeholder: 'Create new label' %>
+          <% label.errors.full_messages_for(:label_name).each do |message| %>
+            <div><%= message %></div>
+          <% end %>
+          <%= form.submit %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

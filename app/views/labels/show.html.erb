@@ -1,0 +1,67 @@
+<div class="container">
+  <div class="row">
+    <div class="col col-lg-2">
+      <%= content_for (:sidebar) do %>
+        <%= render :partial => "layouts/sidebar" %>
+      <% end %>
+    </div>
+    <div class="col col-lg-10">
+      <div class= "row"  class="rounded-0">
+        <% @notes.each do |note| %>
+          <div class="col-sm-3 mb-3 mb-sm-2">
+            <div class="card" style="background-color: <%= note.color.downcase %>;">
+              <div class="card-body" >
+                <%= link_to note_path(note) , remote: true do %>
+                  <div class = "row" >
+                    <div class = "col" >
+                      <strong><%= note.title %></strong>
+                    </div>
+                  </div>
+                  <div class = "row" >
+                    <div class = "col">
+                      <%= note.content %>
+                    </div>
+                  </div>
+                  <div class = "row" >
+                    <div class = "col">
+                      <ul>
+                        <% note.labels.each do |label| %>
+                          <li><%= label.label_name %></li>
+                        <% end %>
+                      </ul>
+                    </div>
+                  </div>
+                  <div class = "row" >
+                    <div class = "col" >
+                      <%= link_to "Show", note %>
+                    </div>
+                  </div>
+                  <div class = "row" >
+                    <div class = "col" >
+                    <%= link_to 'Not_Archived', [:notarchive, note], method: :put %>
+                    </div>
+                  </div>
+                <% end %>
+              </div>
+              <ul class="nav-item dropdown px-2" >
+                <a class="nav-link dropdown-toggle" href="#" role="button"    data-bs-toggle="dropdown" aria-expanded="false">
+                    <strong>more..</strong>
+                </a>
+                <ul class="dropdown-menu">
+                  <li>
+                    <%= link_to 'Create Copy', copy_note_path(note), method: :post%>
+                  </li>
+                  <li>
+                    <%= link_to 'Delete Note', [:soft_delete, note], method: :put %>
+                  </li>
+                </ul>
+              </ul>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id='mynote'></div>

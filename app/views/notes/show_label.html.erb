@@ -1,0 +1,7 @@
+<% @notes.each do |note| %>
+  <div style="background-color: <%= note.color.downcase %>", class='index' >
+    <h2>Title</h2>
+    <%= note.title %>
+    <h3><%= link_to "Show", note %> </h3>
+  </div>
+<% end %>

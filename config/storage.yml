@@ -1,0 +1,26 @@
+test:
+service: Disk
+root: <%= Rails.root.join("tmp/storage") %>
+
+
+
+local:
+  service: Disk
+  root: <%= Rails.root.join("tmp/storage") %>
+
+google:
+  service: GCS
+  project: app
+  bucket: <%= Rails.application.credentials.dig(Rails.env.to_sym, :google, :bucket) %>
+  credentials:
+    type: <%= Rails.application.credentials.dig(Rails.env.to_sym, :google, :type) %>
+    project_id: <%= Rails.application.credentials.dig(Rails.env.to_sym, :google, :project_id) %>
+    private_key_id: <%= Rails.application.credentials.dig(Rails.env.to_sym, :google, :private_key_id) %>
+
+    private_key: <%= (Rails.application.credentials.dig(Rails.env.to_sym, :google, :private_key) || '').dump %>
+    client_email: <%= Rails.application.credentials.dig(Rails.env.to_sym, :google, :client_email) %>
+    client_id: <%= Rails.application.credentials.dig(Rails.env.to_sym, :google, :client_id) %>
+    auth_uri: <%= Rails.application.credentials.dig(Rails.env.to_sym, :google, :auth_uri) %>
+    token_uri: <%= Rails.application.credentials.dig(Rails.env.to_sym, :google, :token_uri) %>
+    auth_provider_x509_cert_url: <%= Rails.application.credentials.dig(Rails.env.to_sym, :google, :auth_provider_x509_cert_url) %>
+    client_x509_cert_url: <%= Rails.application.credentials.dig(Rails.env.to_sym, :google, :client_x509_cert_url) %>

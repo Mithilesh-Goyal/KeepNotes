@@ -1,0 +1,195 @@
+<div class="container">
+  <div class="row">
+    <div class="col col-lg-2">
+      <%= content_for (:sidebar) do %>
+        <%= render :partial => "layouts/sidebar" %>
+      <% end %>
+    </div>
+    <div class="col col-lg-10">
+      <div class="row">
+        <div class="col col-lg-3">
+        </div>
+        <div class="col col-lg-9"  id = "underline">
+          <%= link_to new_note_path , remote: true do %>
+            <table class="table table-bordered">
+              <tr>
+                <td>Take a note... </td>
+              </tr>
+            </table>
+          <% end %>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col col-lg-2">
+          <h4>Pinned</h4>
+        </div>
+      </div>
+      <div class= "row" class="rounded-0">
+        <% (@notes.active & @notes.notdel & @notes.pinned).each do |note| %>
+          <div class="col-sm-3 mb-3 mb-sm-2" id="card-<%= note.id %>" >
+            <div class="card" style="background-color: <%= note.color.downcase %>;">
+              <div class="card-body" id="note_div" data-note-id="<%= note.id %>">
+                <%#= link_to note_path(note) , remote: true do %>
+                  <div class="row" >
+                    <div class="col">
+                      <strong><%= note.title %></strong>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col">
+                      <%= (note.content).truncate(200) %>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col">
+                      <ul>
+                        <% note.labels.each do |label| %>
+                          <li><%= label.label_name %></li>
+                        <% end %>
+                      </ul>
+                    </div>
+                  </div>
+                <%# end %>
+              </div>
+              <ul class="nav-item dropdown px-2">
+                  <a class="nav-link dropdown-toggle" href="#" role="button"    data-bs-toggle="dropdown" aria-expanded="false">
+                          <strong>more..</strong>
+                  </a>
+                  <ul class="dropdown-menu">
+                    <li>
+                      <%= link_to 'Create Copy', copy_note_path(note), method: :post%>
+                    </li>
+                    <li>
+                      <%= link_to 'Delete Note', [:soft_delete, note], method: :put %>
+                    </li>
+                    <li>
+                      <%= link_to 'Archived', [:archive, note], method: :put %>
+                    </li>
+                    <li>
+                      <%= link_to 'UnPin', [:unpinned, note], method: :put %>
+                    </li>
+                  </ul>
+                </ul>
+            </div>
+          </div>
+        <% end %>
+      </div>
+      <%= render "note", note: @note %>
+      <div class="row" >
+        <div class="col col-lg-2">
+          <h4>Others</h4>
+        </div>
+      </div>
+      <div class="row" class="rounded-0">
+        <% (@notes.active & @notes.notdel & @notes.unpinned).each  do |note| %>
+          <div class="col-sm-3 mb-3 mb-sm-2" id="card-<%= note.id %>">
+            <div class="card"  style="background-color: <%= note.color.downcase %>;" >
+              <div class="card-body" id="note_div" data-note-id="<%= note.id %>">
+                <%#= link_to note_path(note) , remote: true do %>
+                  <div class="row" >
+                    <div class="col " >
+                      <strong><%= note.title %></strong>
+                    </div>
+                  </div>
+                  <div class="row" >
+                    <div class="col">
+                      <%= note.content %>
+                    </div>
+                  </div>
+                  <div class="row" >
+                    <div class="col">
+                      <ul>
+                        <% note.labels.each do |label| %>
+                          <li><%= label.label_name %></li>
+                        <% end %>
+                      </ul>
+                    </div>
+                  </div>
+                <%# end %>
+              </div>
+              <ul class="nav-item dropdown px-2" >
+                <a class="nav-link dropdown-toggle" href="#" role="button"    data-bs-toggle="dropdown" aria-expanded="false">
+                        <strong>more..</strong>
+                </a>
+                <ul class="dropdown-menu" >
+                  <li>
+                    <%= link_to 'Create Copy', copy_note_path(note), method: :post%>
+                  </li>
+                  <li>
+                    <%= link_to 'Delete Note', [:soft_delete, note], method: :put %>
+                  </li>
+                  <li>
+                    <%= link_to 'Archived', [:archive, note], method: :put %>
+                  </li>
+                  <li>
+                    <%= link_to 'Pin', [:pinned, note], method: :put %>
+                  </li>
+                </ul>
+              </ul>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+<div id='mynote'></div>
+<div id='mylabel'></div>
+
+<div class = "row" >
+  <div class = "col" >
+    <%= link_to 'Restore', [:restore, note], method: :put %>
+  </div>
+  <div class = "col" >
+  <%= link_to 'Destroy', note_path(note),
+        method: :delete,
+        data: { confirm: 'Are you sure?' } %>
+  </div>
+</div>
+
+
+
+
+---------------
+
+def create
+  @note = Note.new(note_params)
+  if @note.save
+    redirect_to notes_path
+  else
+    render :new
+  end
+end
+
+
+------------
+
+# $('#mynote').html.prepend("<%= j render 'new', note: @note %>");
+# $('#new').modal('show');
+
+
+
+$('#mynote').html("<%= j render 'form', note: @note %>");
+$('#form').modal('show')
+
+
+
+$(document).on('click', '#note_div', function(e) {
+  e.preventDefault();
+  var noteId = $(this).data('note-id');
+  var newContent = $('#note-content').val();
+  $.ajax({
+      type: 'PATCH',
+      url: '/notes/' + noteId,
+      method: 'GET',
+      data: { note: { content: newContent }},
+      success: function(data) {
+        if (data.success) {
+        $('#card-' + noteID).text(data.content);
+        $('#card-' + noteID).text(data.title);
+      }
+        $('#mynote').html("<%= j render 'form', note: @note %>");
+        $('#form').modal('hide');
+      },
+  });
+});

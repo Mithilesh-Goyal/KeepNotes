@@ -1,0 +1,46 @@
+<div class="container">
+  <div class="row">
+    <div class="col col-lg-2">
+      <%= content_for (:sidebar) do %>
+        <%= render :partial => "layouts/sidebar" %>
+      <% end %>
+    </div>
+    <div class="col col-lg-10">
+      <div class="row">
+        <div class="col col-lg-3">
+        </div>
+        <div class="col col-lg-9" id="#new_div">
+          <div class="card-body" id="new_div">
+              <%= link_to new_note_path , remote: true do %>
+                <table class="table table-bordered">
+                  <tr>
+                    <td>Take a note... </td>
+                  </tr>
+                </table>
+              <% end %>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col col-lg-2">
+          <h4>Pinned</h4>
+        </div>
+      </div>
+      <div class= "row" class="rounded-0">
+        <% (@notes.active & @notes.notdel & @notes.pinned).each do |note| %>
+          <%= render  partial: "note" , locals: { note: note} %>
+        <% end %>
+      </div>
+      <div class="row" >
+        <div class="col col-lg-2">
+          <h4>Others</h4>
+        </div>
+      </div>
+      <div class="row" class="rounded-0">
+        <% (@notes.active & @notes.notdel & @notes.unpinned).each  do |note| %>
+          <%= render  partial: "note" , locals: { note: note} %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

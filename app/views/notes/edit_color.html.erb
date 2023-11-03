@@ -1,0 +1,4 @@
+<%= form_for @note do |f| %>
+  Color: <%= f.select :color , options_for_select(Note::COLOR_TYPE)  %>
+  <%= f.submit "Update" %>
+<% end %>
