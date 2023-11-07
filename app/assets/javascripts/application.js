@@ -20,3 +20,12 @@
  require turbolinks
  require bootstrap
  require_tree
+
+ $(document).on('click', '.note-clickable', function() {
+  var noteId = $(this).attr('id').split('_')[1];
+  $.ajax({
+    url: '/notes/' + noteId + '/edit',
+    type: 'get',
+    dataType: 'script',
+  });
+});

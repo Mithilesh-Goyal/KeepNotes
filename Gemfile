@@ -44,6 +44,7 @@ gem 'popper'
 gem 'jquery-turbolinks'
 gem 'rails-html-sanitizer'
 gem 'uuid', '~> 2.3', '>= 2.3.8'
+gem 'uuidable'
 
 
 group :development, :test do

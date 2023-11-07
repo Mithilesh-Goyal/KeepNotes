@@ -1,0 +1,7 @@
+# $(".card-<%= @note.id %>").replaceWith("<%= j render @note %>");
+# $("#modal").hide();
+
+
+
+$('#editModal').modal('hide');
+$('#note_<%= @note.id %>').html("<%= j (render 'note', note: @note) %>");

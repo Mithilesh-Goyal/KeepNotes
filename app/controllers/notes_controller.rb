@@ -5,8 +5,8 @@ class NotesController < ApplicationController
     if params[:query].present?
       @notes = Note.where("title ILIKE ? OR content LIKE ? ","%#{params[:query]}%", "%#{params[:query]}%" )
     else
-      @notes = Note.all
-      # @notes = Note.where(stage:"notdel" , status: "active").order(pin: :desc)
+      # @notes = Note.all
+      @notes = Note.order('created_at DESC')
     end
   end
 
@@ -25,9 +25,10 @@ class NotesController < ApplicationController
 
   def create
     @note = Note.new(note_params)
+    @note.unique_id= SecureRandom.hex(6)
 
     if @note.save
-      # flash[:success] = 'Note was successfully created.'
+      flash[:success] = 'Note was successfully created.'
       # @notes = [note] + Note.order(created_at: :desc)
       redirect_to notes_path
     else
@@ -35,16 +36,34 @@ class NotesController < ApplicationController
     end
   end
 
+  # def edit
+  #   @note = Note.find(params[:id])
+  # end
+
+  # def update
+  #   @note = Note.find(params[:id])
+  #   if @note.update(note_params)
+  #      redirect_to notes_path
+  #   else
+  #     render json: { success: false, errors: @note.errors.full_messages }
+  #   end
+  # end
+
   def edit
     @note = Note.find(params[:id])
+    respond_to do |format|
+      format.js
+    end
   end
 
   def update
     @note = Note.find(params[:id])
     if @note.update(note_params)
-       redirect_to notes_path
+      respond_to do |format|
+        format.js
+      end
     else
-      render json: { success: false, errors: @note.errors.full_messages }
+      # Handle validation errors if any
     end
   end
 
@@ -171,6 +190,6 @@ class NotesController < ApplicationController
     end
 
     def note_params
-      params.require(:note).permit(:title, :content ,:label_id,:color,:state , :status ,:pin , :image ,:background_image,:deleted_at)
+      params.require(:note).permit(:title, :content ,:label_id,:color,:state , :status ,:pin , :image ,:background_image,:deleted_at , :unique_id)
     end
 end

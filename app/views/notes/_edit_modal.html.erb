@@ -1,7 +1,8 @@
-<div id="editModal" class="modal fade" role="model-dialog" id= "card-<%= note.id %>">
+<div id="editModal" class="modal fade" role="model-dialog" >
   <div class="modal-dialog modal-lg">
-    <div class="modal-content">
-      <%= form_for(note) do |form| %>
+    <div class="modal-content" class="modal-body" >
+      <%= form_for(note, remote: true) do |form| %>
+        <%#= form_for note, url: note_path(note), method: :patch, html: { id: 'edit-note-form', data: { note_id: note.id } } do |form| %>
         <div style="background-color: <%= @note.color.downcase %>;", class='T'>
           <div class='row'>
             <div class='col'  >
@@ -11,7 +12,6 @@
               <div><%= message %></div>
             <% end %>
           </div>
-
           <div class='row' class='mt-10 col-md-12'>
             <div class='col' class='input'>
               <%= form.text_area :content, placeholder: 'Content' %>
@@ -102,7 +102,6 @@
           </div>
           <div class="row">
             <div class="col-sm-9">
-              <%= form.submit 'save' %>
             </div>
             <div class='col-sm-3'>
               <% if note.created_at.strftime('%d-%b-%y') != note.updated_at.strftime('%d-%b-%y') %>
@@ -116,7 +115,7 @@
           </div>
           <div class="row">
             <div class="col-sm-9">
-              <%= link_to 'Edit', edit_note_path(note) %></td>
+            <%= form.submit 'Update Note' %>
             </div>
           </div>
         </div>
