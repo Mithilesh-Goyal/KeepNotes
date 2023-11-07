@@ -10,22 +10,22 @@
 // Read Sprockets README (https://github.com/rails/sprockets#sprockets-directives) for details
 // about supported directives.
 //
+// require jquery
+// require jquery_ujs
+// require turbolinks
+// require_tree
+
 //= require jquery
-//= require jquery_ujs
+//= require popper
 //= require turbolinks
-//= require_tree .
+//= require bootstrap
+//= require_tree
 
- require jquery
- require popper
- require turbolinks
- require bootstrap
- require_tree
-
- $(document).on('click', '.note-clickable', function() {
-  var noteId = $(this).attr('id').split('_')[1];
-  $.ajax({
-    url: '/notes/' + noteId + '/edit',
-    type: 'get',
-    dataType: 'script',
-  });
-});
+//  $(document).on('click', '.note-clickable', function() {
+//   var noteId = $(this).attr('id').split('_')[1];
+//   $.ajax({
+//     url: '/notes/' + noteId + '/edit',
+//     type: 'get',
+//     dataType: 'script',
+//   });
+// });

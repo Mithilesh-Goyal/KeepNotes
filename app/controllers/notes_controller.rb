@@ -36,19 +36,6 @@ class NotesController < ApplicationController
     end
   end
 
-  # def edit
-  #   @note = Note.find(params[:id])
-  # end
-
-  # def update
-  #   @note = Note.find(params[:id])
-  #   if @note.update(note_params)
-  #      redirect_to notes_path
-  #   else
-  #     render json: { success: false, errors: @note.errors.full_messages }
-  #   end
-  # end
-
   def edit
     @note = Note.find(params[:id])
     respond_to do |format|
@@ -59,8 +46,10 @@ class NotesController < ApplicationController
   def update
     @note = Note.find(params[:id])
     if @note.update(note_params)
+      redirect_to notes_path
       respond_to do |format|
         format.js
+        # format.html
       end
     else
       # Handle validation errors if any

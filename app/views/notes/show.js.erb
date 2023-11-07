@@ -1,2 +1,2 @@
-# $('#mynote').html("<%= j render('edit_form', note: @note) %>");
+# $(<%= "card-#{@note.id}" %>).html("<%= j render 'edit_modal', note: @note %>");
 # $('#editModal').modal('show');
