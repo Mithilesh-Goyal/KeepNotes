@@ -1,8 +1,7 @@
-<div id="editModal" class="modal fade" role="model-dialog" >
+<div id="editModal" class="modal fade" role="model-dialog" id= "card-<%= note.id %>">
   <div class="modal-dialog modal-lg">
-    <div class="modal-content" class="modal-body" >
-      <%= form_for(note, remote: true) do |form| %>
-        <%#= form_for note, url: note_path(note), method: :patch, html: { id: 'edit-note-form', data: { note_id: note.id } } do |form| %>
+    <div class="modal-content">
+      <%= form_for(note) do |form| %>
         <div style="background-color: <%= @note.color.downcase %>;", class='T'>
           <div class='row'>
             <div class='col'  >
@@ -32,30 +31,9 @@
           </div>
           <div class="row">
             <div class="col col-sm-3">
-              <%= form_for @note do |f| %>
-                Color: <%= f.select :color , options_for_select(Note::COLOR_TYPE,selected:@note.color)  %>
-                <%#= f.submit 'Update' %>
-              <% end %>
+              Color: <%= form.select :color , options_for_select(Note::COLOR_TYPE,selected:@note.color)  %>
             </div>
             <div class="col col-sm-2">
-              <div class="dropdown">
-                <button class="btn btn-success dropdown-toggle"
-                        type="button"
-                        id="label_name"
-                        data-bs-toggle="dropdown"
-                        aria-expanded="true">
-                    Add Label
-                </button>
-                <ul class="dropdown-menu"
-                  aria-labelledby="multiSelectDropdown">
-                  <%= form_for @note, url: {action: "add_label"} do |form| %>
-                    <li>
-                      <%= form.collection_check_boxes(:label_ids, Label.all, :id, :label_name, { multiple: true }) %>
-                      <%= form.submit "Add label" %>
-                      <% end %>
-                    </li>
-                </ul>
-              </div>
             </div>
             <div class="col col-sm-4">
               <% if @note.image.attached? %>
@@ -65,31 +43,12 @@
                   <%= form.file_field :image %>
               <% end %>
             </div>
-
             <div class="col col-sm-2">
               <li class="nav-item dropdown px-2" >
                 <a class="nav-link dropdown-toggle" href="#" role="button"    data-bs-toggle="dropdown" aria-expanded="false">
                     <strong>more..</strong>
                 </a>
                 <ul class="dropdown-menu">
-                  <li>
-                    <button class="btn btn-success dropdown-toggle"
-                          type="button"
-                          id="label_name"
-                          data-bs-toggle="dropdown"
-                          aria-expanded="true">
-                        Add Label
-                    </button>
-                    <ul class="dropdown"
-                      aria-labelledby="multiSelectDropdown">
-                      <%= form_for @note, url: {action: "add_label"} do |form| %>
-                        <li>
-                          <%= form.collection_check_boxes(:label_ids, Label.all, :id, :label_name, { multiple: true }) %>
-                          <%= form.submit "Add label" %>
-                          <% end %>
-                        </li>
-                    </ul>
-                  </li>
                   <li>
                     <%= link_to 'Create Copy', copy_note_path(note), method: :post%>
                   </li>
@@ -102,6 +61,7 @@
           </div>
           <div class="row">
             <div class="col-sm-9">
+              <%= form.submit 'save' %>
             </div>
             <div class='col-sm-3'>
               <% if note.created_at.strftime('%d-%b-%y') != note.updated_at.strftime('%d-%b-%y') %>
@@ -111,11 +71,6 @@
               <% if note.created_at.strftime('%H:%M') != note.updated_at. strftime('%H:%M') %>
                 Edited <%= note.formatted_time %>
               <% end %>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-sm-9">
-            <%= form.submit 'Update Note' %>
             </div>
           </div>
         </div>

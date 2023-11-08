@@ -228,3 +228,7 @@ textarea{
   background-position: center;
   background-repeat: no-repeat;
 }
+
+.highlight {
+  background-color: yellow;
+}

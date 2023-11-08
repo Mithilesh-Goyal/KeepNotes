@@ -13,19 +13,10 @@
 // require jquery
 // require jquery_ujs
 // require turbolinks
-// require_tree
 
 //= require jquery
 //= require popper
-//= require turbolinks
-//= require bootstrap
-//= require_tree
 
-//  $(document).on('click', '.note-clickable', function() {
-//   var noteId = $(this).attr('id').split('_')[1];
-//   $.ajax({
-//     url: '/notes/' + noteId + '/edit',
-//     type: 'get',
-//     dataType: 'script',
-//   });
-// });
+// require bootstrap
+//= require_tree
+//= require jquery_ujs

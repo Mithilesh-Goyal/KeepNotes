@@ -1,1 +1,36 @@
-<%= render "new", note: @note %>
+<%#= render "new", note: @note %>
+  <%= form_for(@note, remote: true) do |form| %>
+    <div style="background-color: <%= @note.color.downcase %>;", class = T >
+      <div class = "row">
+        <div class = "col">
+          <%= form.text_area :title, placeholder: "Title" %>
+        </div>
+        <% @note.errors.full_messages_for(:title).each do |message| %>
+          <div><%= message %></div>
+        <% end %>
+      </div>
+      <div class = "row" class="mt-10 col-md-12">
+        <div class = "col">
+          <%= form.text_area :content, placeholder: "Content" %>
+        </div>
+        <% @note.errors.full_messages_for(:content).each do |message| %>
+          <div><%= message %></div>
+        <% end %>
+      </div>
+      <div class='row'>
+        <div class='col col-sm-3'>
+          <%= form_for @note do |f| %>
+            Color: <%= f.select :color , options_for_select(Note::COLOR_TYPE,selected:@note.color)  %>
+            <%#= f.submit 'Update' %>
+          <% end %>
+        </div>
+        <div class='col col-sm-4'>
+          <% if @note.image.attached? %>
+            <%= image_tag (@note.image), height: 100 , width: 200 %>
+          <% end %>
+          <%= form.file_field :image %>
+        </div>
+      </div>
+        <%= form.submit "save" %>
+    </div>
+  <% end %>

@@ -1,4 +1,5 @@
 class NotesController < ApplicationController
+  skip_before_action :verify_authenticity_token
   def index
     @new_note = Note.new
     @labels = Label.all
@@ -46,13 +47,10 @@ class NotesController < ApplicationController
   def update
     @note = Note.find(params[:id])
     if @note.update(note_params)
-      redirect_to notes_path
       respond_to do |format|
-        format.js
-        # format.html
+        format.js { redirect_to notes_path }
+        # format.html { redirect_to notes_path }
       end
-    else
-      # Handle validation errors if any
     end
   end
 
@@ -147,6 +145,16 @@ class NotesController < ApplicationController
     end
   end
 
+  def set_reminder
+    @note = Note.find(params[:id])
+    if @note.update(note_params)
+      flash[:notice] = 'Reminder set successfully!'
+      redirect_to @note
+    else
+      render 'edit'
+    end
+  end
+
   def delete_image
     @note = Note.find(params[:id])
 
@@ -179,6 +187,6 @@ class NotesController < ApplicationController
     end
 
     def note_params
-      params.require(:note).permit(:title, :content ,:label_id,:color,:state , :status ,:pin , :image ,:background_image,:deleted_at , :unique_id)
+      params.require(:note).permit(:title, :content ,:label_id,:color,:state , :status ,:pin , :image ,:background_image,:deleted_at , :unique_id , :reminder)
     end
 end

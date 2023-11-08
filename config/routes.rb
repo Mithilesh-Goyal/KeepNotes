@@ -25,7 +25,7 @@ Rails.application.routes.draw do
       post :copy_note
       delete :delete_image
       delete :delete_background_image
-
+      patch :set_reminder
     end
   end
   resources :labels
