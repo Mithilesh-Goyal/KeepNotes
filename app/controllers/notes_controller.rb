@@ -48,9 +48,11 @@ class NotesController < ApplicationController
     @note = Note.find(params[:id])
     if @note.update(note_params)
       respond_to do |format|
-        format.js { redirect_to notes_path }
-        # format.html { redirect_to notes_path }
+
+        format.js
       end
+    else
+      redirect_to notes_path, alert: 'Failed to update note.'
     end
   end
 
