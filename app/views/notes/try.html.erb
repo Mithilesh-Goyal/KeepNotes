@@ -122,8 +122,8 @@ $('#editModal').modal('show');
                         <li>
                           <%= form.collection_check_boxes(:label_ids, Label.all, :id, :label_name, { multiple: true }) %>
                           <%= form.submit "Add label" %>
-                          <% end %>
                         </li>
+                      <% end %>
                     </ul>
                   </li>
                   <li>

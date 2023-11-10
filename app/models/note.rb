@@ -17,7 +17,7 @@ class Note < ApplicationRecord
   scope :unpinned, -> { where(pin: false) }
 
   def formatted_date
-       updated_at.strftime('%d-%b-%y')
+    updated_at.strftime('%d-%b-%y')
   end
   def formatted_time
     updated_at.localtime.strftime("%H:%M:%S")

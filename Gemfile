@@ -39,7 +39,6 @@ gem 'simple_form'
 gem 'whenever', require: false
 gem 'bootstrap'
 gem 'activestorage'
-gem 'bootstrap'
 gem 'popper'
 gem 'jquery-turbolinks'
 gem 'rails-html-sanitizer'
@@ -64,4 +63,4 @@ group :development do
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
-gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
+# gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]

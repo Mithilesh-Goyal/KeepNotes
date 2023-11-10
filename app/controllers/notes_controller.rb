@@ -41,6 +41,7 @@ class NotesController < ApplicationController
     @note = Note.find(params[:id])
     respond_to do |format|
       format.js
+
     end
   end
 
@@ -48,7 +49,7 @@ class NotesController < ApplicationController
     @note = Note.find(params[:id])
     if @note.update(note_params)
       respond_to do |format|
-
+        # format.html {redirect_to notes_path}
         format.js
       end
     else

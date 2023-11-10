@@ -1,7 +1,7 @@
-<div id="editModal" class="modal fade" role="model-dialog" id= "card-<%= note.id %>">
+<div class="modal fade editModal" role="model-dialog" id= "card-<%= note.id %>" tabindex="-1">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
-      <%= form_for(note, remote: true ) do |form| %>
+      <%= form_for(note,remote: true ) do |form| %>
         <div style="background-color: <%= @note.color.downcase %>;", class='T'>
           <div class='row'>
             <div class='col'  >
@@ -27,6 +27,12 @@
                   <h7>/</h7>
                 <% end %>
               </ul>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col">
+              <%= form.label :reminder, "Set Reminder Date" %>
+              <%= form.datetime_field :reminder %>
             </div>
           </div>
           <div class="row">

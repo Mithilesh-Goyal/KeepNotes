@@ -6,19 +6,19 @@
   border: 1px solid #969696;
   padding: 5px;
 } */
-.fordiv
+/* .fordiv
 {
   color: blue;
   height: 200px;
   width: 200px;
   border: 1px solid #969696;
   padding: 5px;
-}
-.main
+} */
+/* .main
 {
   height: 1500px;
   width: 1300px;
-}
+} */
 
 .T
 {
@@ -230,5 +230,9 @@ textarea{
 }
 
 .highlight {
-  background-color: yellow;
+  background-color: red;
+}
+.card-body
+{
+  width: 800px;
 }
