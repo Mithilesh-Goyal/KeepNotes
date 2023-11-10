@@ -28,7 +28,7 @@
   width: 100px; */
   float:left;
   padding: 5px;
-  margin: 5px;
+  margin: 4.6px;
    background:transparent;
 }
 .transparent
@@ -164,18 +164,10 @@ div {
   margin-bottom: 10px;
 }
 
-link_to {
-  text-decoration: none;
-  color: black;
-}
-
 .container {
   margin-top: -570px;
 }
 
-#underline a:link {
-  text-decoration:none;
-}
 
 .wrapper {
   display: flex;
@@ -192,7 +184,6 @@ link_to {
   width: 60%;
   height: 150vh;
 }
-
 
 body {
   background-color: #ccc;
@@ -235,4 +226,12 @@ textarea{
 .card-body
 {
   width: 800px;
+}
+.divleft
+{
+  float:left;
+}
+
+#cracker1-button a:link {
+  text-decoration:none;
 }

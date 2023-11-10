@@ -259,3 +259,69 @@ $('#editModal').modal('show');
     </div>
   </div>
 </div>
+
+<#% (@notes.active & @notes.notdel & @notes.unpinned).each  do |note| %>
+  <div class="row rounded-0" data-note-id="<%#= note.id %>" id="card-<%= note.id %>">
+    <%#= render  partial: "note" , locals: { note: note} %>
+  </div>
+<#% end %>
+
+
+
+
+
+
+
+
+
+
+<div class='container'>
+  <div class='row'>
+    <div class='col col-lg-2'>
+      <%= content_for (:sidebar) do %>
+        <%= render :partial => "layouts/sidebar" %>
+      <% end %>
+    </div>
+    <div class='col col-lg-10'>
+      <div class="row">
+        <div class='col col-lg-3'>
+        </div>
+        <div class='col col-lg-9'>
+          <div class='card-body'>
+            <%= link_to new_note_path , remote: true do %>
+              <table class="table table-bordered">
+                <tr>
+                  <td>Take a note... </td>
+                </tr>
+              </table>
+            <% end %>
+          </div>
+        </div>
+      </div>
+      <div class='row'>
+        <div class='col col-lg-2'>
+          <h4>Pinned</h4>
+        </div>
+      </div>
+      <div>
+      <% (@notes.active & @notes.notdel & @notes.pinned).each do |note| %>
+        <div class="row rounded-0" data-note-id="<%= note.id %>" id="card-<%= note.id %>">
+          <%= render  partial: "note" , locals: { note: note} %>
+        </div>
+      <% end %>
+      </div>
+      <div class='row'>
+        <div class='col col-lg-2'>
+          <h4>Others</h4>
+        </div>
+      </div>
+      <div>
+        <% (@notes.active & @notes.notdel & @notes.unpinned).each do |note| %>
+          <div data-note-id="<%= note.id %>" id="card-<%= note.id %>" class="divleft">
+            <%= render partial: "note" , locals: { note: note} %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

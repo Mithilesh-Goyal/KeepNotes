@@ -55,12 +55,41 @@
                     <strong>more..</strong>
                 </a>
                 <ul class="dropdown-menu">
-                  <li>
-                    <%= link_to 'Create Copy', copy_note_path(note), method: :post%>
-                  </li>
-                  <li>
-                    <%= link_to 'Delete Note', [:soft_delete, note], method: :put %>
-                  </li>
+                  <% if note.stage == "notdel" %>
+                    <li>
+                      <%= link_to 'Create Copy', copy_note_path(note), method: :post%>
+                    </li>
+                    <li>
+                      <%= link_to 'Delete Note', [:soft_delete, note], method: :put %>
+                    </li>
+                    <% if note.status == "active" %>
+                      <li>
+                        <%= link_to 'Archived', [:archive, note], method: :put %>
+                      </li>
+                    <% else %>
+                      <li>
+                        <%= link_to 'UnArchived', [:notarchive, note], method: :put %>
+                      <li>
+                    <% end %>
+                    <% if note.pin %>
+                      <li>
+                        <%= link_to 'UnPin', [:unpinned, note], method: :put %>
+                      </li>
+                    <% else %>
+                      <li>
+                        <%= link_to 'Pin', [:pinned, note], method: :put %>
+                      </li>
+                    <% end %>
+                  <% else %>
+                    <li>
+                      <%= link_to 'Restore', [:restore, note], method: :put %>
+                    </li>
+                    <li>
+                      <%= link_to 'Destroy', note_path(note),
+                                  method: :delete,
+                                  data: { confirm: 'Are you sure?' } %>
+                    </li>
+                  <% end %>
                 </ul>
               </li>
             </div>
