@@ -39,6 +39,7 @@
           <h4>Others</h4>
         </div>
       </div>
+
       <div class="row">
         <% (@notes.active & @notes.notdel & @notes.unpinned).each_with_index do |note , index| %>
           <div class=" col-sm-3  note_div" data-note-id="<%= note.id %>" id="card-<%= note.id %>">
@@ -49,6 +50,7 @@
           <% end %>
         <% end %>
       </div>
+
     </div>
   </div>
 </div>
