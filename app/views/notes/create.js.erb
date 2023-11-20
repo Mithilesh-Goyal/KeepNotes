@@ -1,6 +1,2 @@
-console.log("hii")
-<% if @note.new_record? %>
-alert('Failed');
-<% else %>
-$('h1').append("<%= j render(@note) %> ");
-<% end %>
+$("#notes-container").prepend('<%= j render @note %>');
+$('#mynewnote')[0].reset();

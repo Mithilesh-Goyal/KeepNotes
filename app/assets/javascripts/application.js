@@ -20,3 +20,15 @@
 // require bootstrap
 //= require_tree
 //= require jquery_ujs
+
+//= require_self
+
+console.log("hello")
+$(document).ready(function() {
+  console.log("hiiiiii")
+
+  $('#note_background_image').change(function() {
+    var selectedImage = $(this).val();
+    $('.note').css('background-image', 'url(' + selectedImage + ')');
+  });
+});

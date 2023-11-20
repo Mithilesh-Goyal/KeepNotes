@@ -1,18 +1,17 @@
 <div class='card' style="background-color: <%= note.color.downcase %>;" data-note-id="<%= note.id %>" id="card-<%= note.id %>" >
-  <div class="card-body " tabindex="-1" >
-    <div class="row">
-      <div class="col">
+  <div class='card-body' tabindex="-1" >
+    <div class='row'>
+      <div class='col'>
         <strong><%= note.title %></strong>
-        <h7>card-<%= note.id %></h7>
       </div>
     </div>
-    <div class="row">
-      <div class="col">
-        <%= (note.content).truncate(200) %>
+    <div class='row'>
+      <div class='col'>
+        <%= (note.content) %>
       </div>
     </div>
-    <div class="row">
-      <div class="col">
+    <div class='row'>
+      <div class='col'>
         <ul>
           <% note.labels.each do |label| %>
             <li><%= label.label_name %></li>

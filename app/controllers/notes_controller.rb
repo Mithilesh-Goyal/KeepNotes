@@ -26,14 +26,14 @@ class NotesController < ApplicationController
 
   def create
     @note = Note.new(note_params)
-    @note.unique_id= SecureRandom.hex(6)
-
-    if @note.save
-      flash[:success] = 'Note was successfully created.'
-      # @notes = [note] + Note.order(created_at: :desc)
-      redirect_to notes_path
-    else
-      render 'new'
+    respond_to do |format|
+      if @note.save
+        format.html { redirect_to notes_path }
+        format.js   # This will render create.js.erb
+        format.json { render json: @note, status: :created, location: @note }
+      else
+        format.html { render :index }
+      end
     end
   end
 
@@ -41,7 +41,6 @@ class NotesController < ApplicationController
     @note = Note.find(params[:id])
     respond_to do |format|
       format.js
-
     end
   end
 
@@ -68,7 +67,7 @@ class NotesController < ApplicationController
     @note.update(status: 'archived')
     @note.update(pin: 'false')
     redirect_to :notes, notice: 'Successfully Archived'
-   end
+  end
 
   def notarchive
     @note = Note.find(params[:id])
@@ -76,15 +75,28 @@ class NotesController < ApplicationController
     redirect_to :notes, notice: 'Successfully restored'
   end
 
+  # def soft_delete
+  #   @note = Note.find(params[:id])
+  #   # @note.update(deleted_at: DateTime.now)
+  #   @note.update(stage: 'del')
+  #   redirect_to :notes, notice: 'Successfully'
+  # end
+
   def soft_delete
     @note = Note.find(params[:id])
     @note.update(stage: 'del')
-    redirect_to :notes, notice: 'Successfully'
+    # @note.destroy
+    respond_to do |format|
+      format.html { redirect_to notes_url, notice: 'Note was successfully destroyed.' }
+      format.json { head :no_content }
+      format.js   # This will look for a destroy.js.erb file
+    end
   end
 
   def restore
     @note = Note.find(params[:id])
     @note.update(stage: 'notdel')
+    @note.update(deleted_at: nil)
     redirect_to :notes_bin, notice: 'Successfully restored'
   end
 
@@ -167,20 +179,6 @@ class NotesController < ApplicationController
     rescue => e
       flash[:error] = "Failed to delete the image: #{e.message}"
     end
-
-    redirect_to :notes
-  end
-
-  def delete_background_image
-    @note = Note.find(params[:id])
-
-    begin
-      @note.image.purge
-      flash[:success] = "Image deleted successfully."
-    rescue => e
-      flash[:error] = "Failed to delete the image: #{e.message}"
-    end
-
     redirect_to :notes
   end
 

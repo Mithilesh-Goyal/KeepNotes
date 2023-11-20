@@ -1,18 +1,18 @@
-<div id="new" class="modal fade" role="model-dialog">
-  <div class="modal-dialog modal-lg" >
-    <div class="modal-content">
+<div id='new' class='modal fade' role='model-dialog'>
+  <div class='modal-dialog modal-lg'>
+    <div class='modal-content'>
       <%= form_for(note, remote: true) do |form| %>
         <div style="background-color: <%= @note.color.downcase %>;", class = T >
-          <div class = "row">
-            <div class = "col">
+          <div class='row'>
+            <div class='col'>
               <%= form.text_area :title, placeholder: "Title" %>
             </div>
             <% note.errors.full_messages_for(:title).each do |message| %>
               <div><%= message %></div>
             <% end %>
           </div>
-          <div class = "row" class="mt-10 col-md-12">
-            <div class = "col">
+          <div class='row mt-10 col-md-12'>
+            <div class='col'>
               <%= form.text_area :content, placeholder: "Content" %>
             </div>
             <% note.errors.full_messages_for(:content).each do |message| %>

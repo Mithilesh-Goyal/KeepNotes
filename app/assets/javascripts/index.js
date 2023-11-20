@@ -7,4 +7,4 @@ $(document).on('click', '.note_div', function(e) {
        url: '/notes/' + noteId + '/edit' ,
        method: 'GET',
    });
- });
+});

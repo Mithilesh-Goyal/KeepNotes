@@ -1,18 +1,18 @@
-<div class="container">
-  <div class="row">
-    <div class="col col-lg-2">
+<div class='container'>
+  <div class='row'>
+    <div class='col col-lg-2'>
       <%= content_for (:sidebar) do %>
         <%= render :partial => "layouts/sidebar" %>
       <% end %>
     </div>
-    <div class="col col-lg-10">
-      <div class="row">
+    <div class='col col-lg-10'>
+      <div class='row'>
         <% @notes.del.each_with_index do |note , index| %>
-           <div class=" col-sm-3  note_div" data-note-id="<%= note.id %>" id="card-<%= note.id %>">
+           <div class='col-sm-3  note_div' data-note-id="<%= note.id %>" id="card-<%= note.id %>">
              <%= render partial: "note" , locals: { note: note} %>
           </div>
           <% if (index + 1) % 4 == 0 %>
-            <div class="row"></div>
+            <div class='row'></div>
           <% end %>
         <% end %>
       </div>

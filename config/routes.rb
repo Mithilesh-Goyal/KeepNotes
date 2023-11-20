@@ -14,7 +14,7 @@ Rails.application.routes.draw do
       put :active
       put :notarchive
       put :deleted_at
-      put :soft_delete
+      patch :soft_delete
       put :restore
       put :pinned
       put :unpinned

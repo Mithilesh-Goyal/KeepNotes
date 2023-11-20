@@ -1,26 +1,38 @@
-<div class="modal fade editModal" role="model-dialog" id= "card-<%= note.id %>" tabindex="-1">
-  <div class="modal-dialog modal-lg">
-    <div class="modal-content">
+<div class='modal fade editModal' role="model-dialog" id= "card-<%= note.id %>' tabindex="-1">
+  <div class='modal-dialog modal-lg'>
+    <div class='modal-content'>
       <%= form_for(note,remote: true ) do |form| %>
         <div style="background-color: <%= @note.color.downcase %>;", class='T'>
           <div class='row'>
-            <div class='col'  >
+            <div class='col'>
               <%= form.text_area :title, placeholder: 'Title' %>
             </div>
             <% note.errors.full_messages_for(:title).each do |message| %>
               <div><%= message %></div>
             <% end %>
           </div>
-          <div class='row' class='mt-10 col-md-12'>
-            <div class='col' class='input'>
+          <div class='row mt-10 col-md-12'>
+            <div class='col input'>
               <%= form.text_area :content, placeholder: 'Content' %>
             </div>
             <% note.errors.full_messages_for(:content).each do |message| %>
               <div><%= message %></div>
             <% end %>
           </div>
-          <div class="row">
-            <div class="col">
+
+          <div class='row'>
+            <div class='col'>
+              <%= form.select :background_image, options_for_select(["image1.jpg", "image2.webp"]), prompt: "Select Background Image" %>
+            </div>
+          </div>
+
+          <div class="field">
+            <%= form.label :background_image, 'Select Background Image' %>
+            <%= form.select :background_image, options_for_select(['image1.jpg', 'image2.jpg', 'image3.jpg', 'image4.jpg']) %>
+          </div>
+
+          <div class='row'>
+            <div class='col'>
               <ul>
                 <% note.labels.each do |label| %>
                   <%= label.label_name %>
@@ -29,19 +41,19 @@
               </ul>
             </div>
           </div>
-          <div class="row">
-            <div class="col">
+          <div class='row'>
+            <div class='col'>
               <%= form.label :reminder, "Set Reminder Date" %>
               <%= form.datetime_field :reminder %>
             </div>
           </div>
-          <div class="row">
-            <div class="col col-sm-3">
+          <div class='row'>
+            <div class='col col-sm-3'>
               Color: <%= form.select :color , options_for_select(Note::COLOR_TYPE,selected:@note.color)  %>
             </div>
-            <div class="col col-sm-2">
+            <div class='col col-sm-2'>
             </div>
-            <div class="col col-sm-4">
+            <div class='col col-sm-4'>
               <% if @note.image.attached? %>
                 <%= image_tag (@note.image), height: 100 , width: 200 %>
                   <%= link_to "Delete Image", delete_image_note_path(@note), method: :delete, data: { confirm: "Are you sure you want to delete this image?" } %>
@@ -49,18 +61,18 @@
                   <%= form.file_field :image %>
               <% end %>
             </div>
-            <div class="col col-sm-2">
-              <li class="nav-item dropdown px-2" >
-                <a class="nav-link dropdown-toggle" href="#" role="button"    data-bs-toggle="dropdown" aria-expanded="false">
+            <div class='col col-sm-2'>
+              <li class='nav-item dropdown px-2'>
+                <a class='nav-link dropdown-toggle' href="#" role="button"    data-bs-toggle="dropdown" aria-expanded="false">
                     <strong>more..</strong>
                 </a>
-                <ul class="dropdown-menu">
-                  <% if note.stage == "notdel" %>
+                <ul class='dropdown-menu'>
+                  <% if note.stage == 'notdel'%>
                     <li>
                       <%= link_to 'Create Copy', copy_note_path(note), method: :post%>
                     </li>
                     <li>
-                      <%= link_to 'Delete Note', [:soft_delete, note], method: :put %>
+                      <%= link_to 'Delete Note', [:soft_delete, note], method: :patch, remote:true %>
                     </li>
                     <% if note.status == "active" %>
                       <li>

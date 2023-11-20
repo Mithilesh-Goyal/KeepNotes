@@ -1,6 +1,19 @@
 class Note < ApplicationRecord
+    acts_as_paranoid
   has_and_belongs_to_many :labels
   has_one_attached :image
+  attr_accessor :background_image
+
+
+
+    default_scope { where(deleted_at: nil) }
+    scope :with_deleted, -> { where.not(deleted_at: nil) }
+
+    def soft_delete
+      self.deleted_at = DateTime.now
+      save
+    end
+
 
   validate :reminder_cannot_be_in_the_past
   def reminder_cannot_be_in_the_past
