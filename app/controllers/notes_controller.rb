@@ -2,6 +2,7 @@ class NotesController < ApplicationController
   skip_before_action :verify_authenticity_token
   def index
     @new_note = Note.new
+    @soft_deleted_notes = Note.only_deleted
     @labels = Label.all
     if params[:query].present?
       @notes = Note.where("title ILIKE ? OR content LIKE ? ","%#{params[:query]}%", "%#{params[:query]}%" )
@@ -12,6 +13,7 @@ class NotesController < ApplicationController
   end
 
   def show
+    @labels = Label.all
     @note = Note.find(params[:id])
       respond_to do |format|
       format.js
@@ -92,6 +94,24 @@ class NotesController < ApplicationController
       format.js   # This will look for a destroy.js.erb file
     end
   end
+
+  # def restore
+  #   @note = Note.only_deleted.find(params[:id])
+  #   @note.restore
+  #   redirect_to notes_path, notice: 'Note was successfully restored.'
+  # end
+
+
+  # def soft_delete
+  #   @note.soft_delete
+  #   redirect_to notes_url, notice: 'Note was successfully destroyed.'
+  # end
+
+  # def restore
+  #   @note.restore
+  #   redirect_to notes_url, notice: 'Note was successfully restored.'
+  # end
+
 
   def restore
     @note = Note.find(params[:id])
@@ -180,6 +200,11 @@ class NotesController < ApplicationController
       flash[:error] = "Failed to delete the image: #{e.message}"
     end
     redirect_to :notes
+  end
+
+  def send_mail
+    @note = Note.find(params[:id])
+    NotemailerMailer.send_mail_note(@note).deliver.now
   end
 
   private

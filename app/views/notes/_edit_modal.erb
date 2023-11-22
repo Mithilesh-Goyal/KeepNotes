@@ -19,18 +19,6 @@
               <div><%= message %></div>
             <% end %>
           </div>
-
-          <div class='row'>
-            <div class='col'>
-              <%= form.select :background_image, options_for_select(["image1.jpg", "image2.webp"]), prompt: "Select Background Image" %>
-            </div>
-          </div>
-
-          <div class="field">
-            <%= form.label :background_image, 'Select Background Image' %>
-            <%= form.select :background_image, options_for_select(['image1.jpg', 'image2.jpg', 'image3.jpg', 'image4.jpg']) %>
-          </div>
-
           <div class='row'>
             <div class='col'>
               <ul>
@@ -41,12 +29,16 @@
               </ul>
             </div>
           </div>
+
           <div class='row'>
             <div class='col'>
               <%= form.label :reminder, "Set Reminder Date" %>
               <%= form.datetime_field :reminder %>
             </div>
           </div>
+          <%= form_for @note, url: {action: "add_label"} do |f| %>
+          <% end %>
+
           <div class='row'>
             <div class='col col-sm-3'>
               Color: <%= form.select :color , options_for_select(Note::COLOR_TYPE,selected:@note.color)  %>
@@ -67,12 +59,23 @@
                     <strong>more..</strong>
                 </a>
                 <ul class='dropdown-menu'>
+                  <li>
+                    <ul class="dropdown"
+                      aria-labelledby="multiSelectDropdown">
+                      <%= form_for @note, url: {action: "add_label"} do |f| %>
+                        <li>
+                          <%= f.collection_check_boxes(:label_ids, Label.all, :id, :label_name, { multiple: true }) %>
+                          <%= f.submit "Add label" %>
+                        </li>
+                      <% end %>
+                    </ul>
+                  </li>
                   <% if note.stage == 'notdel'%>
                     <li>
                       <%= link_to 'Create Copy', copy_note_path(note), method: :post%>
                     </li>
                     <li>
-                      <%= link_to 'Delete Note', [:soft_delete, note], method: :patch, remote:true %>
+                      <%= link_to 'Delete Note', [:soft_delete, note], method: :patch , remote: true %>
                     </li>
                     <% if note.status == "active" %>
                       <li>

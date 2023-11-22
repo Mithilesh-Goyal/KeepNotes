@@ -45,7 +45,8 @@ gem 'rails-html-sanitizer'
 gem 'uuid', '~> 2.3', '>= 2.3.8'
 gem 'uuidable'
 gem 'paranoia'
-
+gem 'sidekiq'
+gem 'onesignal', '~> 1.0.1'
 
 
 group :development, :test do

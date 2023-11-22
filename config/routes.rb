@@ -26,6 +26,7 @@ Rails.application.routes.draw do
       delete :delete_image
       delete :delete_background_image
       patch :set_reminder
+      post :send_mail
     end
   end
   resources :labels

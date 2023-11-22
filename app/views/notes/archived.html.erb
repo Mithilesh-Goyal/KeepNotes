@@ -7,13 +7,19 @@
     </div>
     <div class='col col-lg-10'>
       <div class='row'>
-        <% (@notes.archived & @notes.notdel & @notes.unpinned).each_with_index do |note , index| %>
-          <div class='col-sm-3  note_div' data-note-id="<%= note.id %>" id="card-<%= note.id %>">
-              <%= render partial: "note" , locals: { note: note} %>
-          </div>
-          <% if (index + 1) % 4 == 0 %>
-            <div class='row'></div>
+        <% if @notes.archived.present? %>
+          <% (@notes.archived & @notes.notdel & @notes.unpinned).each_with_index do |note , index| %>
+            <div class='col-sm-3  note_div' data-note-id="<%= note.id %>" id="card-<%= note.id %>">
+                <%= render partial: "note" , locals: { note: note} %>
+            </div>
+            <% if (index + 1) % 4 == 0 %>
+              <div class='row'></div>
+            <% end %>
           <% end %>
+        <% else %>
+          <div class='row align-items-center'>
+            <%= image_tag "archive.jpeg" %>
+          </div>
         <% end %>
       </div>
     </div>

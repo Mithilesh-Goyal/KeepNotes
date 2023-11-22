@@ -2,8 +2,6 @@ class Note < ApplicationRecord
     acts_as_paranoid
   has_and_belongs_to_many :labels
   has_one_attached :image
-  attr_accessor :background_image
-
 
 
     default_scope { where(deleted_at: nil) }
@@ -14,11 +12,12 @@ class Note < ApplicationRecord
       save
     end
 
+  # validates :reminder, presence: true, future_date: true
 
-  validate :reminder_cannot_be_in_the_past
-  def reminder_cannot_be_in_the_past
-    errors.add(:reminder_date, "can't be in the past") if reminder.present? && reminder < Date.today
-  end
+  # validate :reminder_cannot_be_in_the_past
+  # def reminder_cannot_be_in_the_past
+  #   errors.add(:reminder_date, "can't be in the past") if reminder.present? && reminder < Date.today
+  # end
 
   COLOR_TYPE = { "White" => 'White',"Red" => '#7c0a02', "Green" => '#004225', "Pista-Green"  => '#d6c675' , "AntiqueWhite"  => '#faebd7' , "Blue Bell"  => '#a2a2d0' }.freeze
 

@@ -35,7 +35,6 @@
           <% end %>
         <% end %>
       </div>
-
       <div class='row'>
         <div class='col col-lg-2'>
           <h4>Others</h4>
@@ -44,7 +43,7 @@
       <div class='row container' id='notes-container'>
         <% (@notes.active & @notes.notdel & @notes.unpinned).each_with_index do |note , index| %>
           <div class="col-sm-3 note_div" data-note-id="<%= note.id %>" id="card-<%= note.id %>" >
-              <%= render partial: "note" , locals: { note: note} %>
+            <%= render partial: "note" , locals: { note: note} %>
           </div>
           <% if (index + 1) % 4 == 0 %>
             <div class='row'></div>
