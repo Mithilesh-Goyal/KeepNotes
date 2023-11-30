@@ -1,2 +1,5 @@
 $("#notes-container").prepend('<%= j render @note %>');
 $('#mynewnote')[0].reset();
+location.reload();
+$('#mynewnote').modal()
+$('#mynewnote').modal('toggle')

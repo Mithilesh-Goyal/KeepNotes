@@ -1,2 +1,3 @@
 $("#card-<%= @note.id %>").html("<%= j render partial: 'note', locals: { note: @note } %>");
-$("#editModal").modal('hide');
+$('.editModal').modal()
+$('.editModal').modal('toggle')

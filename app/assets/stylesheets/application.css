@@ -249,3 +249,6 @@ textarea{
   padding: 8px;
   box-sizing: border-box;
 }
+.equal-size-input {
+  width: 70%;
+}

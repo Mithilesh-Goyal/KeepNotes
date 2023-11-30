@@ -1,4 +1,6 @@
 class NoteslabelController < ApplicationController
+  before_action :authenticate_user!
+
   def new
     @noteslabel = Noteslabel.new
   end

@@ -1,4 +1,6 @@
 class NotesController < ApplicationController
+  before_action :authenticate_user!
+
   skip_before_action :verify_authenticity_token
   def index
     @new_note = Note.new
@@ -74,15 +76,10 @@ class NotesController < ApplicationController
   def notarchive
     @note = Note.find(params[:id])
     @note.update(status: 'active')
+    # render plain: "OK"
+
     redirect_to :notes, notice: 'Successfully restored'
   end
-
-  # def soft_delete
-  #   @note = Note.find(params[:id])
-  #   # @note.update(deleted_at: DateTime.now)
-  #   @note.update(stage: 'del')
-  #   redirect_to :notes, notice: 'Successfully'
-  # end
 
   def soft_delete
     @note = Note.find(params[:id])
@@ -94,23 +91,6 @@ class NotesController < ApplicationController
       format.js   # This will look for a destroy.js.erb file
     end
   end
-
-  # def restore
-  #   @note = Note.only_deleted.find(params[:id])
-  #   @note.restore
-  #   redirect_to notes_path, notice: 'Note was successfully restored.'
-  # end
-
-
-  # def soft_delete
-  #   @note.soft_delete
-  #   redirect_to notes_url, notice: 'Note was successfully destroyed.'
-  # end
-
-  # def restore
-  #   @note.restore
-  #   redirect_to notes_url, notice: 'Note was successfully restored.'
-  # end
 
 
   def restore
@@ -158,6 +138,11 @@ class NotesController < ApplicationController
     @labels = Label.all
   end
 
+  def label_note
+    @notes = Note.all
+    @labels = Label.all
+  end
+
   def active
     @notes = Note.all
   end
@@ -166,7 +151,14 @@ class NotesController < ApplicationController
     @note = Note.find(params[:id])
     @labels = Label.where(id: params[:note][:label_ids])
     @note.labels = @labels
-    redirect_to :notes
+
+    if @note.save
+      flash[:notice] = 'Label added successfully!'
+      redirect_to notes_path
+    else
+      flash[:alert] = 'Error adding label'
+      render :edit
+    end
   end
 
   def copy
@@ -200,6 +192,10 @@ class NotesController < ApplicationController
       flash[:error] = "Failed to delete the image: #{e.message}"
     end
     redirect_to :notes
+  end
+
+  def home
+
   end
 
   def send_mail

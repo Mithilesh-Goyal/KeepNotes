@@ -23,6 +23,8 @@
 
 //= require_self
 
+
+
 console.log("hello")
 $(document).ready(function() {
   console.log("hiiiiii")

@@ -1,10 +1,12 @@
-<div class="row" class="search">
-  <div class="col col-sm-2">
+<% unless url_for == new_user_session_path || url_for ==  new_user_registration_path  %>
+  <div class="row" class="search">
+    <div class="col col-sm-2">
+    </div>
+    <div class="col col-sm-10" >
+      <%= form_tag(notes_path, method: :get) do %>
+        <%= text_field_tag :query, params[:query], placeholder: "Search..." %>
+        <%= submit_tag "Search" %>
+      <% end %>
+    </div>
   </div>
-  <div class="col col-sm-10" >
-    <%= form_tag(notes_path, method: :get) do %>
-      <%= text_field_tag :query, params[:query], placeholder: "Search..." %>
-      <%= submit_tag "Search" %>
-    <% end %>
-  </div>
-</div>
+<% end %>

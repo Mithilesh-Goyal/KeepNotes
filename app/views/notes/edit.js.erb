@@ -1,3 +1,4 @@
 $('.editModal').modal('hide');
 $('#mynote').html("<%= j render 'edit_modal', note: @note %>");
-$('.editModal').modal('show');
+$('.editModal').modal()
+$('.editModal').modal('toggle')

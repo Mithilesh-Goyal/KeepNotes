@@ -1,2 +1,3 @@
 $('#mynewnote').html("<%= j render 'new', note: @note %>");
-$('#new').modal('show');
+$('#new').modal()
+$('#new').modal('toggle')
