@@ -1,7 +1,8 @@
 Rails.application.routes.draw do
-
-  devise_for :users
+  resources :consumers
+  devise_for :users, :controllers => { :omniauth_callbacks => "callbacks" }
   # root "notes#home"
+
   root "notes#index"
   get 'notes/archived', :to => 'notes#archived'
   get 'notes/bin', :to => 'notes#bin'
@@ -38,6 +39,8 @@ Rails.application.routes.draw do
   resources :labels
 
   Rails.application.routes.draw do
+  resources :consumers
+  # mount_devise_token_auth_for 'User', at: 'auth'
 
     root to: 'users#new'
 

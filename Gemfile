@@ -47,6 +47,13 @@ gem 'uuidable'
 gem 'paranoia'
 gem 'sidekiq'
 gem 'onesignal', '~> 1.0.1'
+gem 'therubyracer'
+gem 'devise'
+gem 'omniauth'
+gem 'omniauth-digitalocean'
+gem 'omniauth-google-oauth2'
+gem 'pagy'
+
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
@@ -66,4 +73,3 @@ end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 # gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
-gem 'devise'
