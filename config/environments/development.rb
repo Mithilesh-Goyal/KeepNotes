@@ -6,6 +6,8 @@ Rails.application.configure do
   # since you don't have to restart the web server when you make code changes.
   config.cache_classes = false
 
+  # ENV['GOOGLE_OAUTH_CLIENT_SECRET'] = Rails.application.credentials.dig(google_oauth_client_id)
+
   # Do not eager load code on boot.
   config.eager_load = false
 
@@ -80,4 +82,7 @@ config.action_mailer.smtp_settings = {
   :authentication       => "plain",
   :enable_starttls_auto => true
 }
+ENV['GOOGLE_OAUTH_CLIENT_ID'] = '515506958645-tjhqge5bbdj7tpeknslqqavo9hvicmtj.apps.googleusercontent.com'
+ENV['GOOGLE_OAUTH_CLIENT_SECRET'] = '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'
+
 end

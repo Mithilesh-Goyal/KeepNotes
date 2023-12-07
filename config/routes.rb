@@ -1,7 +1,13 @@
 Rails.application.routes.draw do
-  resources :consumers
-  devise_for :users, :controllers => { :omniauth_callbacks => "callbacks" }
-  # root "notes#home"
+  # resources :consumers
+  # devise_for :users, :controllers => { :omniauth_callbacks => "callbacks" }
+  #  devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }
+
+  devise_for :users, controllers: {
+    registrations:  'users/registrations',
+    sessions:  'users/sessions',
+    omniauth_callbacks: 'users/omniauth_callbacks'
+  }
 
   root "notes#index"
   get 'notes/archived', :to => 'notes#archived'
@@ -38,28 +44,28 @@ Rails.application.routes.draw do
   end
   resources :labels
 
-  Rails.application.routes.draw do
-  resources :consumers
-  # mount_devise_token_auth_for 'User', at: 'auth'
+  # Rails.application.routes.draw do
+  # resources :consumers
+  # # mount_devise_token_auth_for 'User', at: 'auth'
 
-    root to: 'users#new'
+  #   root to: 'users#new'
 
-    get 'users/new' => 'users#new', as: :new_user
-    post 'users' => 'users#create'
+  #   get 'users/new' => 'users#new', as: :new_user
+  #   post 'users' => 'users#create'
 
-    # ----- add these lines here: -----
+  #   # ----- add these lines here: -----
 
-    # log in page with form:
-    get '/login'     => 'sessions#new'
+  #   # log in page with form:
+  #   get '/login'     => 'sessions#new'
 
-    # create (post) action for when log in form is submitted:
-    post '/login'    => 'sessions#create'
+  #   # create (post) action for when log in form is submitted:
+  #   post '/login'    => 'sessions#create'
 
-    # delete action to log out:
-    delete '/logout' => 'sessions#destroy'
+  #   # delete action to log out:
+  #   delete '/logout' => 'sessions#destroy'
 
-      # ----- end of added lines -----
+  #     # ----- end of added lines -----
 
-  end
+  # end
 
 end

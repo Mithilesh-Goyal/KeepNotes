@@ -8,7 +8,7 @@ class NotesController < ApplicationController
     @labels = Label.all
     if params[:query].present?
       @notes = Note.where("title ILIKE ? OR content LIKE ? ","%#{params[:query]}%", "%#{params[:query]}%" )
-      @pagy, @notes = pagy((Note.search_notes(params[:query])))
+      # @pagy, @notes = pagy((Note.search_notes(params[:query])))
     else
       # @notes = Note.all
       @pagy, @notes = pagy((Note.all), items: 20)

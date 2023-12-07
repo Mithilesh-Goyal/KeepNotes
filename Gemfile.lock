@@ -74,6 +74,10 @@ GEM
       railties (>= 4.1.0)
       responders
       warden (~> 1.2.3)
+    dotenv (2.8.1)
+    dotenv-rails (2.8.1)
+      dotenv (= 2.8.1)
+      railties (>= 3.2)
     erubi (1.12.0)
     ethon (0.16.0)
       ffi (>= 1.15.0)
@@ -157,6 +161,9 @@ GEM
       omniauth-oauth2 (~> 1.8.0)
     omniauth-oauth2 (1.8.0)
       oauth2 (>= 1.4, < 3)
+      omniauth (~> 2.0)
+    omniauth-rails_csrf_protection (1.0.1)
+      actionpack (>= 4.2)
       omniauth (~> 2.0)
     onesignal (1.0.1)
       typhoeus (~> 1.0, >= 1.0.1)
@@ -315,6 +322,7 @@ DEPENDENCIES
   byebug
   coffee-rails (~> 4.2)
   devise
+  dotenv-rails
   jbuilder (~> 2.5)
   jquery-rails
   jquery-turbolinks
@@ -322,6 +330,7 @@ DEPENDENCIES
   omniauth
   omniauth-digitalocean
   omniauth-google-oauth2
+  omniauth-rails_csrf_protection (~> 1.0)
   onesignal (~> 1.0.1)
   pagy
   paranoia
