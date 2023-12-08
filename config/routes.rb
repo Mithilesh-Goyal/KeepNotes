@@ -2,14 +2,21 @@ Rails.application.routes.draw do
   # resources :consumers
   # devise_for :users, :controllers => { :omniauth_callbacks => "callbacks" }
   #  devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }
+  # post '/auth/google_oauth2', to: 'users/omniauth_callbacks#google_oauth2'
+  devise_scope :user do
+    get "/auth/google_oauth2", to: "omniauth_callbacks#google_oauth2"
+    get "/auth/google_oauth2/callback", to: "omniauth_callbacks#google_oauth2"
+  end
 
+  root "notes#index"
+
+  # get 'auth/:provider/callback', to: 'sessions#omniauth'
   devise_for :users, controllers: {
     registrations:  'users/registrations',
     sessions:  'users/sessions',
     omniauth_callbacks: 'users/omniauth_callbacks'
   }
 
-  root "notes#index"
   get 'notes/archived', :to => 'notes#archived'
   get 'notes/bin', :to => 'notes#bin'
   get 'notes/show_label', :to => 'notes#show_label'
