@@ -1,16 +1,10 @@
 Rails.application.routes.draw do
-  # resources :consumers
-  # devise_for :users, :controllers => { :omniauth_callbacks => "callbacks" }
-  #  devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }
-  # post '/auth/google_oauth2', to: 'users/omniauth_callbacks#google_oauth2'
-  devise_scope :user do
-    get "/auth/google_oauth2", to: "omniauth_callbacks#google_oauth2"
-    get "/auth/google_oauth2/callback", to: "omniauth_callbacks#google_oauth2"
-  end
 
-  root "notes#index"
+  root 'notes#index'
 
-  # get 'auth/:provider/callback', to: 'sessions#omniauth'
+  # root 'pages#home'
+
+
   devise_for :users, controllers: {
     registrations:  'users/registrations',
     sessions:  'users/sessions',
@@ -25,7 +19,7 @@ Rails.application.routes.draw do
   get 'notes/search', :to => 'notes#search'
   get '/update/:id' , to: "root#update"
   get 'notes/label_note', :to => 'notes#label_note'
-  get 'notes/home', :to => 'notes#home'
+  # get 'notes/home', :to => 'notes#home'
   # get 'notes/user', :to => 'notes#user'
 
   resources :notes do
@@ -52,6 +46,7 @@ Rails.application.routes.draw do
   resources :labels
 
   # Rails.application.routes.draw do
+  get 'pages/home'
   # resources :consumers
   # # mount_devise_token_auth_for 'User', at: 'auth'
 

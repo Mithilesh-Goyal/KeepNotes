@@ -1,5 +1,11 @@
 class Note < ApplicationRecord
-    acts_as_paranoid
+
+  validates :title, presence: true
+  validates :content, presence: true
+  validates :title, length: { in: 6..20 }
+  validates :content, length: { in: 6..20 }
+
+  acts_as_paranoid
   has_and_belongs_to_many :labels
   has_one_attached :image
 

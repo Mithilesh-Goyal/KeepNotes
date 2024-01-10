@@ -14,6 +14,7 @@ class NotesController < ApplicationController
       @pagy, @notes = pagy((Note.all), items: 20)
       @notes = Note.order('created_at DESC')
     end
+    #  render json: { status: 'ok' }, status: 200
   end
 
 

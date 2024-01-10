@@ -489,3 +489,16 @@ config.action_mailer.smtp_settings = {
 
 
 end
+
+
+
+
+
+
+
+edit.js.erb
+
+$('.editModal').modal('hide');
+$('#mynote').html("<%= j render 'edit_modal', note: @note %>");
+$('.editModal').modal()
+$('.editModal').modal('toggle')

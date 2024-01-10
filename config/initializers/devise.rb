@@ -318,6 +318,8 @@ Devise.setup do |config|
   # config.omniauth :digitalocean, "db381dc9990be7e3bc42503d0", "5b0824c2722b65d29965f1a1df"
   # config.omniauth :google, "db381dc9990be7e3bc42503d0", "5b0824c2722b65d29965f1a1df"
 
-  config.omniauth :google_oauth2, ENV['GOOGLE_OAUTH_CLIENT_ID'], ENV['GOOGLE_OAUTH_CLIENT_SECRET']
+  # config.omniauth :google_oauth2, ENV['GOOGLE_OAUTH_CLIENT_ID'], ENV['GOOGLE_OAUTH_CLIENT_SECRET']
+
+
 
 end

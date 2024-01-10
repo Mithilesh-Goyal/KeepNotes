@@ -2,15 +2,9 @@
 
 
 class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
-  # You should configure your model like this:
-  # devise :omniauthable, omniauth_providers: [:twitter]
-
-  # You should also create an action method in this controller like this:
-  # def twitter
-  # end
-
   def google_oauth2
-    url = "https://www.googleapis.com/oauth2/v3/tokeninfo?id_token=#{params["id_token"]}"
+    byebug
+    auth = request.env['omniauth.auth']
     user = User.from_omniauth(auth)
 
     if user.present?
@@ -27,7 +21,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
 
   private
 
-  def auth
-    @auth ||= ['request.omniauth.auth']
-  end
+  # def auth
+  #   @auth ||= ['request.omniauth.auth']
+  # end
 end
